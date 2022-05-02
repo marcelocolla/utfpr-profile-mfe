@@ -3,8 +3,7 @@ image: node:latest
 install-job:
   stage: build
   script:
-    - echo "Hello, $GITLAB_USER_LOGIN!"
-    - echo "//${CI_SERVER_HOST}/api/v4/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
+    - echo "//gitlab.com/api/v4/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
     - npm install
   artifacts:
     paths:
@@ -18,7 +17,7 @@ test-job:
 deploy-prod:
   stage: deploy
   script:
-    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
+    - echo "This job deploys from the branch."
     - CI=false npm run build
     - echo "-- build completed succesfully"
   dependencies:
