@@ -1,9 +1,15 @@
 image: node:latest
 
-install-job:
-  stage: build
+setup-job:
+  stage: setup
   script:
     - echo "//gitlab.com/api/v4/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
+
+install-job:
+  stage: build
+  dependencies:
+    - setup-job
+  script:
     - npm install
   artifacts:
     paths:
@@ -11,6 +17,8 @@ install-job:
 
 test-job:
   stage: test
+  dependencies:
+    - install-job
   script:
     - echo "This job tests something, but takes more time than test-job1."
 
@@ -22,5 +30,6 @@ deploy-prod:
     - echo "-- build completed succesfully"
   dependencies:
     - install-job
+    - test-job
   only:
     - main
