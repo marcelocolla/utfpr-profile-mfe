@@ -3,8 +3,8 @@ image: node:latest
 install-job:
   stage: build
   script:
-    - echo "//gitlab.com/api/v4/packages/npm/:_authToken=${CI_TOKEN}">.npmrc
-    - npm config set @utfprfabricadesoftware:registry https://gitlab.com/api/v4/packages/npm/
+    - echo "//gitlab.com/api/v4/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
+    - npm config list
     - npm install
   artifacts:
     paths:
