@@ -1,0 +1,27 @@
+image: node:latest
+
+install-job:
+  stage: build
+  script:
+    - echo "//gitlab.com/api/v4/packages/npm/:_authToken=${CI_TOKEN}">.npmrc
+    - npm config set @utfprfabricadesoftware:registry https://gitlab.com/api/v4/packages/npm/
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+test-job:
+  stage: test
+  script:
+    - echo "This job tests something, but takes more time than test-job1."
+
+deploy-prod:
+  stage: deploy
+  script:
+    - echo "This job deploys from the branch."
+    - CI=false npm run build
+    - echo "-- build completed succesfully"
+  dependencies:
+    - install-job
+  only:
+    - main
