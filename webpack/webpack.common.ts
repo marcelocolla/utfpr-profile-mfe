@@ -1,6 +1,8 @@
 import { Configuration, container } from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
+import packageJson from '../package.json'
+
 const { ModuleFederationPlugin } = container
 
 const config: Configuration = {
@@ -39,6 +41,7 @@ const config: Configuration = {
         './ProfileRoutes': './src/app/RoutesApp.tsx',
       },
       shared: {
+        ...packageJson.dependencies,
         react: {
           singleton: true,
           eager: true,
