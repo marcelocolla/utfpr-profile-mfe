@@ -1,0 +1,61 @@
+0 verbose cli [
+0 verbose cli   '/home/colla/.nvm/versions/node/v16.13.0/bin/node',
+0 verbose cli   '/home/colla/.nvm/versions/node/v16.13.0/bin/npm',
+0 verbose cli   'ci',
+0 verbose cli   '--cache',
+0 verbose cli   '.npm',
+0 verbose cli   '--prefer-offline',
+0 verbose cli   '--unsafe-perm',
+0 verbose cli   '--no-optional'
+0 verbose cli ]
+1 info using npm@8.1.0
+2 info using node@v16.13.0
+3 timing npm:load:whichnode Completed in 0ms
+4 timing config:load:defaults Completed in 1ms
+5 timing config:load:file:/home/colla/.nvm/versions/node/v16.13.0/lib/node_modules/npm/npmrc Completed in 0ms
+6 timing config:load:builtin Completed in 0ms
+7 verbose config optional Use `--omit=optional` to exclude optional dependencies, or
+7 verbose config `--include=optional` to include them.
+7 verbose config
+7 verbose config     Default value does install optional deps unless otherwise omitted.
+8 timing config:load:cli Completed in 2ms
+9 timing config:load:env Completed in 1ms
+10 timing config:load:file:/home/colla/projects/utfpr-profile-mfe/.npmrc Completed in 2ms
+11 timing config:load:project Completed in 3ms
+12 timing config:load:file:/home/colla/.npmrc Completed in 1ms
+13 timing config:load:user Completed in 1ms
+14 timing config:load:file:/home/colla/.nvm/versions/node/v16.13.0/etc/npmrc Completed in 0ms
+15 timing config:load:global Completed in 0ms
+16 timing config:load:validate Completed in 1ms
+17 timing config:load:credentials Completed in 1ms
+18 timing config:load:setEnvs Completed in 0ms
+19 timing config:load Completed in 10ms
+20 timing npm:load:configload Completed in 10ms
+21 timing npm:load:setTitle Completed in 0ms
+22 timing npm:load:setupLog Completed in 0ms
+23 timing config:load:flatten Completed in 1ms
+24 timing npm:load:cleanupLog Completed in 2ms
+25 timing npm:load:configScope Completed in 0ms
+26 timing npm:load:projectScope Completed in 1ms
+27 timing npm:load Completed in 15ms
+28 timing arborist:ctor Completed in 3ms
+29 verbose loadVirtual Error: loadVirtual requires existing shrinkwrap file
+29 verbose loadVirtual     at Arborist.loadVirtual (/home/colla/.nvm/versions/node/v16.13.0/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-virtual.js:62:18)
+29 verbose loadVirtual     at async Promise.all (index 0)
+29 verbose loadVirtual     at async CI.ci (/home/colla/.nvm/versions/node/v16.13.0/lib/node_modules/npm/lib/ci.js:63:5)
+30 timing command:ci Completed in 14ms
+31 verbose stack Error: The `npm ci` command can only install with an existing package-lock.json or
+31 verbose stack npm-shrinkwrap.json with lockfileVersion >= 1. Run an install with npm@5 or
+31 verbose stack later to generate a package-lock.json file, then try again.
+31 verbose stack     at /home/colla/.nvm/versions/node/v16.13.0/lib/node_modules/npm/lib/ci.js:70:15
+31 verbose stack     at async Promise.all (index 0)
+31 verbose stack     at async CI.ci (/home/colla/.nvm/versions/node/v16.13.0/lib/node_modules/npm/lib/ci.js:63:5)
+32 verbose cwd /home/colla/projects/utfpr-profile-mfe
+33 verbose Linux 5.13.0-41-generic
+34 verbose argv "/home/colla/.nvm/versions/node/v16.13.0/bin/node" "/home/colla/.nvm/versions/node/v16.13.0/bin/npm" "ci" "--cache" ".npm" "--prefer-offline" "--unsafe-perm" "--no-optional"
+35 verbose node v16.13.0
+36 verbose npm  v8.1.0
+37 error The `npm ci` command can only install with an existing package-lock.json or
+37 error npm-shrinkwrap.json with lockfileVersion >= 1. Run an install with npm@5 or
+37 error later to generate a package-lock.json file, then try again.
+38 verbose exit 1

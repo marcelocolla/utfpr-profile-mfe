@@ -1,9 +1,7 @@
-import { Configuration, container } from 'webpack'
+import { Configuration } from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-import packageJson from '../package.json'
-
-const { ModuleFederationPlugin } = container
+import moduleFederation from './moduleFederation'
 
 const config: Configuration = {
   entry: './src/index.tsx',
@@ -30,32 +28,7 @@ const config: Configuration = {
     ],
   },
   plugins: [
-    new ModuleFederationPlugin({
-      name: 'utfpr_profile_mfe',
-      filename: 'remoteEntry.js',
-      library: {
-        type: 'var',
-        name: 'utfpr_profile_mfe',
-      },
-      exposes: {
-        './ProfileRoutes': './src/app/RoutesApp.tsx',
-      },
-      shared: {
-        ...packageJson.dependencies,
-        react: {
-          singleton: true,
-          eager: true,
-        },
-        'react-dom': {
-          singleton: true,
-          eager: true,
-        },
-        'react-router-dom': {
-          singleton: true,
-          eager: true,
-        },
-      },
-    }),
+    moduleFederation(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),

@@ -34,6 +34,7 @@
     "@types/yup": "^0.29.13",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
+    "@utfprfabricadesoftware/utfpr-tools-react": "^0.1.0",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "eslint": "^8.10.0",
