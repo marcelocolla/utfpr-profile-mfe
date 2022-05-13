@@ -10,7 +10,7 @@ interface ConfigurationDev extends Configuration {
   }
 }
 
-const port = 3300
+const port = 4400
 
 const devConfig: ConfigurationDev = {
   mode: 'development',

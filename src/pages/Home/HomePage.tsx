@@ -9,6 +9,7 @@ import {
   ButtonVigilante,
 } from '@utfprfabricadesoftware/utfpr-lib-ui-react'
 
+import useUserStore from 'shared/utfpr-core-shared-mfe/UserStore'
 import { FormReport } from 'components/FormReport'
 import { FormDepartment } from 'components/FormDepartment'
 
@@ -16,8 +17,7 @@ import * as S from './HomePage.styles'
 
 export const HomePage = (): JSX.Element => {
   const history = useHistory()
-  const user: any = null
-  // const { user } = useContext(AuthContext);
+  const user = useUserStore()
 
   const [open, setOpen] = React.useState(false)
   const [openDeseg, setOpenDeseg] = React.useState(false)
@@ -55,12 +55,7 @@ export const HomePage = (): JSX.Element => {
           </div>
           <strong>{user?.pessoa?.nome_pessoa}</strong>
           <span>
-            Matrícula:{' '}
-            <strong>
-              {(user?.deseg && user?.deseg?.matricula) ||
-                (user?.professor && user?.professor?.matricula) ||
-                (user?.vigilante && user?.vigilante?.matricula)}
-            </strong>
+            Matrícula: <strong>{user.getRegistrationNumber()}</strong>
           </span>
         </S.Card>
 
