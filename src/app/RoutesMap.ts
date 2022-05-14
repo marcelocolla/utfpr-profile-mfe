@@ -11,5 +11,9 @@ export const getRoutesMap = (basename = ''): RouteProps[] => {
       path: `${basename}/`,
       component: HomePageLazy,
     },
+    {
+      path: '*',
+      component: HomePageLazy,
+    },
   ]
 }
