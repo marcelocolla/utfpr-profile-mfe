@@ -15,6 +15,8 @@ import { FormDepartment } from 'components/FormDepartment'
 
 import * as S from './HomePage.styles'
 
+import imgAvatar from 'assets/images/avatar.png'
+
 export const HomePage = (): JSX.Element => {
   const history = useHistory()
   const user = useUserStore()
@@ -51,7 +53,7 @@ export const HomePage = (): JSX.Element => {
       <S.Content>
         <S.Card>
           <div>
-            <img src="Ellipse 2.png" alt="Avatar" />
+            <img src={imgAvatar} alt="Avatar" />
           </div>
           <strong>{user?.pessoa?.nome_pessoa}</strong>
           <span>

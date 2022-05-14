@@ -5,7 +5,7 @@ const initialsharedDomain = process.env.WEBPACK_SERVE ? SHARED_DOMAIN_DEFAULT : 
 
 const sharedDomain = process.env.REACT_APP_SHARED_DOMAIN || initialsharedDomain
 
-const appsConfig: ModuleRegisterApps = {
+const appsEntry: ModuleRegisterApps = {
   coreSharedMFE: {
     enabled: true,
     localName: 'utfpr-core-shared-mfe',
@@ -15,4 +15,4 @@ const appsConfig: ModuleRegisterApps = {
   },
 }
 
-export default appsConfig
+export default appsEntry

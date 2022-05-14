@@ -1,31 +1,22 @@
 import { container } from 'webpack'
 import {
+  registerApps,
   moduleFederationConfig,
   moduleFederationSharedByReact,
-  registerApps,
 } from '@utfprfabricadesoftware/utfpr-tools-react'
 
-import packageJson from '../package.json'
-import appsConfig from '../tools/appsConfig'
-
-const { ModuleFederationPlugin } = container
+import pkgs from '../package.json'
+import appsEntry from '../tools/appsEntry'
+import appsExposed from '../tools/appsExposed'
 
 function moduleFederation() {
-  const name = 'utfpr_profile_mfe'
-
-  return new ModuleFederationPlugin({
-    ...moduleFederationConfig(name, {
-      remotes: registerApps(appsConfig),
-      shared: moduleFederationSharedByReact(packageJson.dependencies),
-    }),
-    library: {
-      type: 'var',
-      name,
-    },
-    exposes: {
-      './ProfileRoutes': './src/app/RoutesApp.tsx',
-    },
+  const config = moduleFederationConfig('utfpr_profile_mfe', {
+    remotes: registerApps(appsEntry),
+    shared: moduleFederationSharedByReact(pkgs.dependencies),
+    exposes: appsExposed,
   })
+
+  return new container.ModuleFederationPlugin(config)
 }
 
 export default moduleFederation

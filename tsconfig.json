@@ -18,11 +18,14 @@
     "isolatedModules": true,
     "jsx": "react-jsx"
   },
+  "typeRoots": [
+    "src/shared"
+  ],
   "exclude": [
     "node_modules"
   ],
   "include": [
     "src/**/*",
-    "src/@types/**/*.d.ts"
+    "src/**/*.d.ts"
   ]
 }
