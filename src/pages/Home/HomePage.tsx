@@ -43,7 +43,8 @@ export const HomePage = (): JSX.Element => {
   }
 
   function handleSignOut() {
-    console.log('>>> user sign out')
+    user.resetUser()
+    history.push('/login')
   }
 
   return (
@@ -60,12 +61,6 @@ export const HomePage = (): JSX.Element => {
             Matrícula: <strong>{user.getRegistrationNumber()}</strong>
           </span>
         </S.Card>
-
-        <S.ButtonWrapper>
-          {user?.deseg && <ButtonDeseg onClickLeft={abrirRelatorio} onClickRight={abrirCadastro} />}
-          {user?.professor && <ButtonProfessor />}
-          {user?.vigilante && <ButtonVigilante />}
-        </S.ButtonWrapper>
 
         <Modal
           visible={openRelatorio}
@@ -98,6 +93,14 @@ export const HomePage = (): JSX.Element => {
           <FormDepartment user={user} onConfirm={atualizar} />
         </Modal>
       </S.Content>
+
+      <S.ButtonWrapper>
+        {user?.deseg && (
+          <ButtonDeseg onClickLeft={abrirRelatorio} onClickRight={abrirCadastro} title="SSSSS" />
+        )}
+        {user?.professor && <ButtonProfessor />}
+        {user?.vigilante && <ButtonVigilante />}
+      </S.ButtonWrapper>
     </S.HomeSection>
   )
 }

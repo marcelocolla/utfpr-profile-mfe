@@ -2,12 +2,11 @@ import styled from 'styled-components'
 
 export const HomeSection = styled.div`
   width: 100%;
-  height: 100vh;
-  padding: 4rem 5rem 4rem;
+  min-height: 100vh;
+  padding: 1rem;
 
   display: flex;
   flex-direction: column;
-
   align-items: center;
 
   background: rgb(245, 245, 248);
@@ -22,11 +21,10 @@ export const HomeSection = styled.div`
 
 export const Content = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  height: 100%;
 `
 
 export const Card = styled.div`
