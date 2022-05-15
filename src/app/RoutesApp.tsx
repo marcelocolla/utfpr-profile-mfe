@@ -1,5 +1,6 @@
 import React from 'react'
-import { Switch, Route, RouteProps } from 'react-router-dom'
+import { Route, RouteProps, Redirect } from 'react-router-dom'
+import useUserStore from 'shared/utfpr-core-shared-mfe/UserStore'
 
 import { getRoutesMap } from './RoutesMap'
 
@@ -11,14 +12,19 @@ const RoutesApp = ({ basename = '' }: RoutesAppProps): JSX.Element => {
   const findRoutes = React.useCallback(() => getRoutesMap(basename), [basename])
 
   const routes = findRoutes()
+  const user = useUserStore()
+
+  console.log('>>> user', user)
+
+  if (!user.token) {
+    return <Redirect to="/login" />
+  }
 
   return (
     <React.Suspense fallback="Carregando...">
-      <Switch>
-        {routes.map((route: RouteProps) => (
-          <Route key={route.path?.toString()} {...route} />
-        ))}
-      </Switch>
+      {routes.map((route: RouteProps) => (
+        <Route key={route.path?.toString()} {...route} />
+      ))}
     </React.Suspense>
   )
 }

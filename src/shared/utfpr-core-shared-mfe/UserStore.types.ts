@@ -7,9 +7,9 @@ export interface Person {
 }
 
 export interface UserGeneric {
-  id_pessoa: string
+  id_pessoa: number
   matricula: string
-  id_deseg?: string
+  id_deseg?: number
   id_departamento?: number
 }
 
