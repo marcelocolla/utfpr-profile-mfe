@@ -75,13 +75,13 @@ export const HomePage = (): JSX.Element => {
         <Modal visible={openDeseg} title="Cadastros" close={() => setOpenDeseg(false)}>
           {/* não sei se é a melhor solução, criar um vertical*/}
           <S.VerticalButtonWrapper>
-            <Button type="button" name="desegButton" path="/usuarios/deseg">
+            <Button type="button" name="desegButton" path="/profile/deseg">
               DESEG
             </Button>
-            <Button type="button" name="professoresButton" path="/usuarios/professor">
+            <Button type="button" name="professoresButton" path="/profile/professor">
               Professores
             </Button>
-            <Button type="button" name="vigilantesButton" path="/usuarios/vigilante">
+            <Button type="button" name="vigilantesButton" path="/profile/vigilante">
               Vigilantes
             </Button>
           </S.VerticalButtonWrapper>
