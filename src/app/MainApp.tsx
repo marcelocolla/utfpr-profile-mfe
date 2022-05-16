@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { ThemeStyles } from '@utfprfabricadesoftware/utfpr-lib-ui-react'
 
 import RoutesApp from './RoutesApp'
@@ -13,9 +13,7 @@ const MainApp = (): JSX.Element => {
       <ThemeStyles />
 
       <BrowserRouter>
-        <Switch>
-          <RoutesApp />
-        </Switch>
+        <RoutesApp />
       </BrowserRouter>
     </React.StrictMode>
   )

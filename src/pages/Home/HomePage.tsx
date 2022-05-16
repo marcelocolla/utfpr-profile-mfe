@@ -1,7 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import {
-  Header,
   Modal,
   Button,
   ButtonDeseg,
@@ -15,10 +13,10 @@ import { FormDepartment } from 'components/FormDepartment'
 
 import * as S from './HomePage.styles'
 
-import imgAvatar from 'assets/images/avatar.png'
+import { PageLayout } from 'components/PageLayout'
+import { CardUser } from 'components/CardUser'
 
 export const HomePage = (): JSX.Element => {
-  const history = useHistory()
   const user = useUserStore()
 
   const [open, setOpen] = React.useState(false)
@@ -29,6 +27,7 @@ export const HomePage = (): JSX.Element => {
   // o que atualiza seu perfil e consequentemente, atualiza a página
   function atualizar() {
     setOpen(false)
+
     history.go(0)
   }
 
@@ -42,65 +41,42 @@ export const HomePage = (): JSX.Element => {
     setRelatorio(true)
   }
 
-  function handleSignOut() {
-    user.resetUser()
-    history.push('/login')
-  }
-
   return (
-    <S.HomeSection>
-      <Header home header="Home" signOut={handleSignOut} />
+    <PageLayout home title="Home">
+      <CardUser name={user?.pessoa?.nome_pessoa} matricula={user.getRegistrationNumber()} />
 
-      <S.Content>
-        <S.Card>
-          <div>
-            <img src={imgAvatar} alt="Avatar" />
-          </div>
-          <strong>{user?.pessoa?.nome_pessoa}</strong>
-          <span>
-            Matrícula: <strong>{user.getRegistrationNumber()}</strong>
-          </span>
-        </S.Card>
+      <Modal visible={openRelatorio} title="Geração de Relatório" close={() => setRelatorio(false)}>
+        <S.VerticalButtonWrapper>
+          <FormReport />
+        </S.VerticalButtonWrapper>
+      </Modal>
 
-        <Modal
-          visible={openRelatorio}
-          title="Geração de Relatório"
-          close={() => setRelatorio(false)}
-        >
-          <S.VerticalButtonWrapper>
-            <FormReport />
-          </S.VerticalButtonWrapper>
-        </Modal>
+      <Modal visible={openDeseg} title="Cadastros" close={() => setOpenDeseg(false)}>
+        {/* não sei se é a melhor solução, criar um vertical*/}
+        <S.VerticalButtonWrapper>
+          <Button type="button" name="desegButton" path="/profile/deseg">
+            DESEG
+          </Button>
+          <Button type="button" name="professoresButton" path="/profile/professor">
+            Professores
+          </Button>
+          <Button type="button" name="vigilantesButton" path="/profile/vigilante">
+            Vigilantes
+          </Button>
+        </S.VerticalButtonWrapper>
+      </Modal>
 
-        <Modal visible={openDeseg} title="Cadastros" close={() => setOpenDeseg(false)}>
-          {/* não sei se é a melhor solução, criar um vertical*/}
-          <S.VerticalButtonWrapper>
-            <Button type="button" name="desegButton" path="/profile/deseg">
-              DESEG
-            </Button>
-            <Button type="button" name="professoresButton" path="/profile/professor">
-              Professores
-            </Button>
-            <Button type="button" name="vigilantesButton" path="/profile/vigilante">
-              Vigilantes
-            </Button>
-          </S.VerticalButtonWrapper>
-        </Modal>
-
-        <Modal visible={open || user?.professor?.id_departamento === 0}>
-          <h2>Professor, por favor selecione sua coordenação.</h2>
-          <br />
-          <FormDepartment user={user} onConfirm={atualizar} />
-        </Modal>
-      </S.Content>
+      <Modal visible={open || user?.professor?.id_departamento === 0}>
+        <h2>Professor, por favor selecione sua coordenação.</h2>
+        <br />
+        <FormDepartment user={user} onConfirm={atualizar} />
+      </Modal>
 
       <S.ButtonWrapper>
-        {user?.deseg && (
-          <ButtonDeseg onClickLeft={abrirRelatorio} onClickRight={abrirCadastro} title="SSSSS" />
-        )}
+        {user?.deseg && <ButtonDeseg onClickLeft={abrirRelatorio} onClickRight={abrirCadastro} />}
         {user?.professor && <ButtonProfessor />}
         {user?.vigilante && <ButtonVigilante />}
       </S.ButtonWrapper>
-    </S.HomeSection>
+    </PageLayout>
   )
 }
