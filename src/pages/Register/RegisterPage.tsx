@@ -86,9 +86,9 @@ export const RegisterPage = () => {
   return (
     <PageLayout title={capitalize(tipoUsuario)}>
       <ListUsers>
-        {usuarios?.map((el) => (
+        {usuarios?.map((el, index) => (
           <Card
-            key={el.id_pessoa}
+            key={index}
             name={el.Pessoa.nome_pessoa}
             leftInfo={isVigilant ? 'Turno' : el.Pessoa.email}
             rightInfo={isVigilant ? (el.Turno ? el.Turno.nome_turno : '') : ''}
