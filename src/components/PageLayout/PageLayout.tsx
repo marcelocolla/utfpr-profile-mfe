@@ -13,12 +13,12 @@ type PageLayoutProps = {
 
 export const PageLayout = React.memo(({ title, home, children }: PageLayoutProps) => {
   const history = useHistory()
-  const { resetUser } = useUserStore()
+  const user = useUserStore?.()
 
   function handleSignOut() {
-    resetUser()
+    user?.resetUser()
 
-    history.push('/login')
+    history.push(user?.redirectAuth || '/login')
   }
 
   return (

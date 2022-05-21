@@ -15,7 +15,7 @@ const RoutesApp = ({ basename = '' }: RoutesAppProps): JSX.Element => {
   const user = useUserStore?.()
 
   if (!user.token) {
-    return <Redirect to="/login" />
+    return <Redirect to={user?.redirectAuth || '/login'} />
   }
 
   return (

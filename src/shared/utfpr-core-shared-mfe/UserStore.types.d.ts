@@ -14,6 +14,7 @@ export interface UserGeneric {
 }
 
 export interface UserState {
+  redirectAuth: string
   token: string
   pessoa?: Person
   deseg?: UserGeneric
@@ -23,7 +24,7 @@ export interface UserState {
 
 export interface UserStoreResponse extends UserState {
   getRegistrationNumber: () => string
-  updateUser: (data: UserState) => void
+  updateUser: (data: UserState, redirectAuth?: string) => void
   resetUser: () => void
 }
 
