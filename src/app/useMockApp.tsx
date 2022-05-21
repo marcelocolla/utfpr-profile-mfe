@@ -8,9 +8,10 @@ export const useMockApp = () => {
   const isDevelopment = process.env.NODE_ENV === 'development'
 
   React.useEffect(() => {
-    if (isDevelopment && !user.token) {
+    if (isDevelopment) {
       // Mock user
       user.updateUser({
+        redirectAuth: '/login',
         token: 'mock-token123',
         pessoa: {
           id_pessoa: 1,

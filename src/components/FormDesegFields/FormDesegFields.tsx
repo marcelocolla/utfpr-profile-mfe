@@ -20,14 +20,15 @@ export const FormDesegFields = ({ viewOnly }: FormDesegFieldsProps) => {
         <FormLine>
           <InputField name="nome_pessoa" label="Nome" disabled={viewOnly} />
         </FormLine>
-        <FormLine>
+        <FormLine mt="16px">
           <InputField name="email" label="Email" disabled={viewOnly} />
         </FormLine>
-        <FormLine>
+        <FormLine mt="16px">
           <InputField name="matricula" label="Matricula" disabled={viewOnly} />
         </FormLine>
+
         {!viewOnly && (
-          <FormLine>
+          <FormLine mt="16px">
             <PasswordField name="senha" label="Senha" />
           </FormLine>
         )}
