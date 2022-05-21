@@ -7,7 +7,8 @@ type CardUserProps = {
 
 import { Card } from './CardUser.styles'
 
-import imgAvatar from 'assets/images/avatar.png'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const imgAvatar = require('assets/images/avatar.png')
 
 export const CardUser = ({ name = '', matricula }: CardUserProps) => {
   return (

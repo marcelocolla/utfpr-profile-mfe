@@ -12,13 +12,11 @@ const RoutesApp = ({ basename = '' }: RoutesAppProps): JSX.Element => {
   const findRoutes = React.useCallback(() => getRoutesMap(basename), [basename])
 
   const routes = findRoutes()
-  const { token } = useUserStore()
+  const user = useUserStore?.()
 
-  if (!token) {
+  if (!user.token) {
     return <Redirect to="/login" />
   }
-
-  console.log('>>>> routes', routes)
 
   return (
     <React.Suspense fallback="Carregando...">
