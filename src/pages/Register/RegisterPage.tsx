@@ -74,9 +74,9 @@ export const RegisterPage = () => {
   useEffect(() => {
     try {
       httpClient.get(tipoUsuario).then((response) => {
-        const users = response.data[tipoUsuario]
+        const users = response.data[tipoUsuario] ?? []
 
-        setUsuarios([...users, ...users])
+        setUsuarios(users)
       })
     } catch (err) {
       console.error(err)

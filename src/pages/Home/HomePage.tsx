@@ -52,7 +52,6 @@ export const HomePage = (): JSX.Element => {
       </Modal>
 
       <Modal visible={openDeseg} title="Cadastros" close={() => setOpenDeseg(false)}>
-        {/* não sei se é a melhor solução, criar um vertical*/}
         <S.VerticalButtonWrapper>
           <Button type="button" name="desegButton" path="/usuario/deseg">
             DESEG
