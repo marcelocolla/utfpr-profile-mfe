@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const plato = require('plato-analyze')
+const plato = require('plato')
 const pkg = require('../package.json')
 const reportToCsv = require('./reportToCsv')
 
@@ -27,12 +27,12 @@ function callback(reports) {
 
   const output = `\n\nOUTPUT:
     ----------------------
-    eslint: ${total.eslint}
+    eslint: ${total.jshint}
     sloc: ${total.sloc}
     maintainability: ${total.maintainability}
     average
     ----------------------
-    eslint: ${average.eslint}
+    eslint: ${average.jshint}
     sloc: ${average.sloc}
     maintainability: ${average.maintainability}`
 

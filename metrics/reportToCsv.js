@@ -3,14 +3,6 @@ const fs = require('fs')
 
 const filePath = 'metrics/analise-de-resultados.csv'
 
-function formatNumber(value) {
-  if (value) {
-    return String(value)
-  }
-
-  return ''
-}
-
 function writeFileComplete() {
   console.log('\n\n==========================')
   console.log('Arquivo CSV criado com sucesso: \n  =>', filePath)
@@ -20,19 +12,19 @@ function reportExtractData(reports) {
   const output = []
 
   reports.forEach((item) => {
-    const { module: moduleName, maintainability, aggregate } = item.complexity
-    const { cyclomatic, halstead, sloc } = aggregate.complexity
+    const { module: moduleName, maintainability, methodAggregate } = item.complexity
+    const { cyclomatic, halstead, sloc } = methodAggregate
 
-    if (!/(.types.js|.styles.js)$/i.test(moduleName)) {
+    if (!/(types.js|styles.js)$/i.test(moduleName)) {
       const info = {
         Arquivo: moduleName,
         Manutenibilidade: maintainability,
         Ciclomatico: cyclomatic,
         Sloc_logico: sloc.logical,
         Sloc_fisico: sloc.physical,
-        Dificuldade: formatNumber(halstead.difficulty),
-        Esforco: formatNumber(halstead.effort),
-        Duracao: formatNumber(halstead.time),
+        Dificuldade: halstead.difficulty,
+        Esforco: halstead.effort,
+        Duracao: halstead.time,
       }
 
       output.push(info)

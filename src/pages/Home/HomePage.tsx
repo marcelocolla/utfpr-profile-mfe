@@ -72,9 +72,11 @@ export const HomePage = (): JSX.Element => {
       </Modal>
 
       <S.ButtonWrapper>
-        {user?.deseg && <ButtonDeseg onClickLeft={abrirRelatorio} onClickRight={abrirCadastro} />}
-        {user?.professor && <ButtonProfessor />}
-        {user?.vigilante && <ButtonVigilante />}
+        {user && user.deseg && (
+          <ButtonDeseg onClickLeft={abrirRelatorio} onClickRight={abrirCadastro} />
+        )}
+        {user && user.professor && <ButtonProfessor />}
+        {user && user.vigilante && <ButtonVigilante />}
       </S.ButtonWrapper>
     </PageLayout>
   )
