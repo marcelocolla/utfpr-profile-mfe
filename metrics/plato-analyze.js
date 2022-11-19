@@ -16,7 +16,12 @@ const outputDir = './metrics/artifacts'
 
 const platoArgs = {
   title: pkg.name,
-  eslint: {},
+  exclude: /(styles.js|types.js)$/,
+  eslint: {
+    rules: {
+      quotes: [1, 'double'],
+    },
+  },
 }
 
 //you can use the reports in the callback.
