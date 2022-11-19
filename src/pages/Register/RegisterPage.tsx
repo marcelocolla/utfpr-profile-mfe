@@ -71,16 +71,21 @@ export const RegisterPage = () => {
     setSelection(0)
   }
 
-  useEffect(() => {
-    try {
-      httpClient.get(tipoUsuario).then((response) => {
-        const users = response.data[tipoUsuario] ?? []
+  async function loadUserByType() {
+    await httpClient
+      .get(tipoUsuario)
+      .then((response) => {
+        const users = response.data[tipoUsuario] || []
 
         setUsuarios(users)
       })
-    } catch (err) {
-      console.error(err)
-    }
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  useEffect(() => {
+    loadUserByType()
   }, [tipoUsuario])
 
   return (
@@ -107,7 +112,7 @@ export const RegisterPage = () => {
       <Modal
         visible={open}
         close={() => fecharCadastro()}
-        title={(!viewOnly ? 'Novo ' : '') + capitalize(tipoUsuario)}
+        title={(viewOnly ? '' : 'Novo ') + capitalize(tipoUsuario)}
       >
         {tipoUsuario === 'professor' && <FormTeacher viewOnly={viewOnly} id_usuario={selection} />}
         {tipoUsuario === 'deseg' && <FormDeseg viewOnly={viewOnly} id_usuario={selection} />}

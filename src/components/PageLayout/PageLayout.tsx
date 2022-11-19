@@ -17,14 +17,12 @@ export const PageLayout = React.memo(({ title, home, children }: PageLayoutProps
 
   function handleSignOut() {
     user?.resetUser()
-
     history.push(user?.redirectAuth || '/login')
   }
 
   return (
     <Layout>
       <Header header={title} home={home} signOut={handleSignOut} />
-
       <Content>{children}</Content>
     </Layout>
   )

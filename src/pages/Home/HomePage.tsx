@@ -18,6 +18,7 @@ import { CardUser } from 'components/CardUser'
 
 export const HomePage = (): JSX.Element => {
   const user = useUserStore()
+  const userName = user && user.pessoa && user.pessoa.nome_pessoa
 
   const [open, setOpen] = React.useState(false)
   const [openDeseg, setOpenDeseg] = React.useState(false)
@@ -43,7 +44,7 @@ export const HomePage = (): JSX.Element => {
 
   return (
     <PageLayout home title="Home">
-      <CardUser name={user?.pessoa?.nome_pessoa} matricula={user.getRegistrationNumber()} />
+      <CardUser name={userName} matricula={user.getRegistrationNumber()} />
 
       <Modal visible={openRelatorio} title="Geração de Relatório" close={() => setRelatorio(false)}>
         <S.VerticalButtonWrapper>

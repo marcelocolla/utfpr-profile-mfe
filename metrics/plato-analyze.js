@@ -38,6 +38,8 @@ function callback(reports) {
 
   console.log(output)
 
+  console.log('>>>> overview.reports', JSON.stringify(overview.reports))
+
   reportToCsv(overview.reports)
 }
 

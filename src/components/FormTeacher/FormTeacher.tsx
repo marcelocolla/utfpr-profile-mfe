@@ -24,28 +24,33 @@ export const FormTeacher = (props: FormProps) => {
     departamento: '',
   })
 
-  useEffect(() => {
-    try {
-      if (props.id_usuario !== 0) {
-        httpClient.get('professor/' + props.id_usuario).then((response: any) => {
-          if (response.data.professor.length !== 0) {
-            const getProfessor = response.data.professor[0]
+  async function loadTeacher() {
+    await httpClient
+      .get('professor/' + props.id_usuario)
+      .then((response: any) => {
+        if (response.data.professor.length !== 0) {
+          const getProfessor = response.data.professor[0]
 
-            httpClient.get('/departamento/' + getProfessor.id_departamento).then((depResponse) => {
-              const getDepartamento = depResponse.data.departamento[0]
+          httpClient.get('/departamento/' + getProfessor.id_departamento).then((depResponse) => {
+            const getDepartamento = depResponse.data.departamento[0]
 
-              setProfessor({
-                nome_pessoa: getProfessor.Pessoa.nome_pessoa,
-                email: getProfessor.Pessoa.email,
-                matricula: getProfessor.matricula,
-                departamento: getDepartamento.sigla_departamento ?? '',
-              })
+            setProfessor({
+              nome_pessoa: getProfessor.Pessoa.nome_pessoa,
+              email: getProfessor.Pessoa.email,
+              matricula: getProfessor.matricula,
+              departamento: getDepartamento.sigla_departamento ?? '',
             })
-          }
-        })
-      }
-    } catch (err) {
-      console.error(err)
+          })
+        }
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  useEffect(() => {
+    if (props.id_usuario !== 0) {
+      loadTeacher()
     }
   }, [props])
 

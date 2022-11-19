@@ -24,35 +24,45 @@ export const FormVigilant = (props: FormProps): JSX.Element => {
     senha: '',
   })
 
-  useEffect(() => {
-    // Passo 1: recuperar todos os turnos
-    try {
-      httpClient.get('/turno').then((response: any) => {
+  async function loadUserBySchedules() {
+    await httpClient
+      .get('/turno')
+      .then((response: any) => {
         setTurnos(response.data.turno)
       })
-    } catch (err) {
-      console.error(err)
-    }
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  async function loadVigilantById() {
+    await httpClient
+      .get('/vigilante/' + props.id_usuario)
+      .then((response: any) => {
+        if (response.data.vigilante.length !== 0) {
+          const getVigilante = response.data.vigilante[0]
+
+          setVigilante({
+            id_pessoa: getVigilante.Pessoa.id_pessoa,
+            nome_pessoa: getVigilante.Pessoa.nome_pessoa,
+            email: getVigilante.Pessoa.email,
+            matricula: getVigilante.matricula,
+            turno: getVigilante.id_turno,
+          })
+        }
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  useEffect(() => {
+    // Passo 1: recuperar todos os turnos
+    loadUserBySchedules()
 
     // Passo 2: popular informações do vigilante
-    try {
-      if (props.id_usuario !== 0) {
-        httpClient.get('/vigilante/' + props.id_usuario).then((response: any) => {
-          if (response.data.vigilante.length !== 0) {
-            const getVigilante = response.data.vigilante[0]
-
-            setVigilante({
-              id_pessoa: getVigilante.Pessoa.id_pessoa,
-              nome_pessoa: getVigilante.Pessoa.nome_pessoa,
-              email: getVigilante.Pessoa.email,
-              matricula: getVigilante.matricula,
-              turno: getVigilante.id_turno,
-            })
-          }
-        })
-      }
-    } catch (err) {
-      console.error(err)
+    if (props.id_usuario !== 0) {
+      loadVigilantById()
     }
   }, [props])
 
@@ -70,8 +80,6 @@ export const FormVigilant = (props: FormProps): JSX.Element => {
   }
 
   async function handleUpdate(values: any) {
-    console.log(values)
-
     await httpClient
       .put('/vigilante', {
         id_vigilante: props.id_usuario,

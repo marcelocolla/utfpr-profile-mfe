@@ -17,9 +17,5 @@ export const getRoutesMap = (basename = '/usuario'): RouteProps[] => {
       path: basename,
       component: HomePageLazy,
     },
-    // {
-    //   path: '*',
-    //   component: HomePageLazy,
-    // },
   ]
 }
