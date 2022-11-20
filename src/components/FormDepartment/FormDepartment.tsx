@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Formik } from 'formik'
 
 import httpClient from 'services/httpClient'
@@ -52,7 +52,7 @@ export const FormDepartment = (props: FormDepartmentProps) => {
       })
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     loadDepartment()
   }, [])
 

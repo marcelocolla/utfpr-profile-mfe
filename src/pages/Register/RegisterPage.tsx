@@ -38,12 +38,14 @@ type UsuarioProps = {
 export const RegisterPage = () => {
   const { tipo: tipoUsuario } = useParams<{ tipo: string }>()
   const isVigilant = tipoUsuario === 'vigilante'
+  const isTeacher = tipoUsuario === 'professor'
 
   const [usuarios, setUsuarios] = useState<UsuarioProps[]>()
 
   const [open, setOpen] = useState(false)
   const [viewOnly, setViewOnly] = useState(false)
   const [selection, setSelection] = useState(0)
+  const usuariosList = usuarios || []
 
   function abrirCadastro() {
     if (tipoUsuario !== 'professor') {
@@ -55,11 +57,11 @@ export const RegisterPage = () => {
   function exibirCadastro(tipo_usuario: number, user: UsuarioProps) {
     let id = 0
 
-    if (tipo_usuario === 0) id = user.id_professor ?? user.id_pessoa
+    if (tipo_usuario === 0) id = user.id_professor || user.id_pessoa
 
-    if (tipo_usuario === 1) id = user.id_deseg ?? user.id_pessoa
+    if (tipo_usuario === 1) id = user.id_deseg || user.id_pessoa
 
-    if (tipo_usuario === 3) id = user.id_vigilante ?? user.id_pessoa
+    if (tipo_usuario === 3) id = user.id_vigilante || user.id_pessoa
 
     setSelection(id)
     setViewOnly(true)
@@ -84,6 +86,14 @@ export const RegisterPage = () => {
       })
   }
 
+  function getRightInfo(user: UsuarioProps) {
+    if (isVigilant || !user.Turno) {
+      return ''
+    }
+
+    return user.Turno.nome_turno
+  }
+
   useEffect(() => {
     loadUserByType()
   }, [tipoUsuario])
@@ -91,19 +101,19 @@ export const RegisterPage = () => {
   return (
     <PageLayout title={capitalize(tipoUsuario)}>
       <ListUsers>
-        {usuarios?.map((el, index) => (
+        {usuariosList.map((el, index) => (
           <Card
             key={index}
             name={el.Pessoa.nome_pessoa}
             leftInfo={isVigilant ? 'Turno' : el.Pessoa.email}
-            rightInfo={isVigilant ? (el.Turno ? el.Turno.nome_turno : '') : ''}
-            removeDisabled={tipoUsuario === 'professor'}
+            rightInfo={getRightInfo(el)}
+            removeDisabled={isTeacher}
             onEdition={() => exibirCadastro(el.Pessoa.tipo_usuario, el)}
           />
         ))}
       </ListUsers>
 
-      {tipoUsuario !== 'professor' && (
+      {!isTeacher && (
         <Button type="button" name="criarUsuario" onClickFunction={abrirCadastro}>
           Cadastrar {capitalize(tipoUsuario)}
         </Button>
@@ -111,10 +121,10 @@ export const RegisterPage = () => {
 
       <Modal
         visible={open}
-        close={() => fecharCadastro()}
+        close={fecharCadastro}
         title={(viewOnly ? '' : 'Novo ') + capitalize(tipoUsuario)}
       >
-        {tipoUsuario === 'professor' && <FormTeacher viewOnly={viewOnly} id_usuario={selection} />}
+        {isTeacher && <FormTeacher viewOnly={viewOnly} id_usuario={selection} />}
         {tipoUsuario === 'deseg' && <FormDeseg viewOnly={viewOnly} id_usuario={selection} />}
         {isVigilant && <FormVigilant viewOnly={viewOnly} id_usuario={selection} />}
       </Modal>
