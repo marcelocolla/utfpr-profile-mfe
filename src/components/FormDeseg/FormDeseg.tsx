@@ -29,7 +29,7 @@ export default function FormDeseg(props: FormProps): JSX.Element {
     await httpClient
       .get('/deseg/' + id)
       .then((response: any) => {
-        if (response.data && response.data.deseg.length !== 0) {
+        if (response.data && response.data.deseg?.length !== 0) {
           const getDeseg = response.data.deseg[0]
 
           setDeseg({

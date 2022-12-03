@@ -3,6 +3,7 @@ import { Formik } from 'formik'
 
 import { FormTeacherFields } from 'components/FormTeacherFields'
 import httpClient from 'services/httpClient'
+import { useSnackbar } from 'hooks/useSnackbar'
 
 type FormProps = {
   viewOnly?: boolean
@@ -17,6 +18,7 @@ type ProfessorValues = {
 }
 
 export const FormTeacher = (props: FormProps) => {
+  const { Snackbar, setSnackbar } = useSnackbar()
   const [professor, setProfessor] = useState<ProfessorValues>({
     nome_pessoa: '',
     email: '',
@@ -28,7 +30,7 @@ export const FormTeacher = (props: FormProps) => {
     await httpClient
       .get('professor/' + props.id_usuario)
       .then((response: any) => {
-        if (response.data.professor.length !== 0) {
+        if (response.data.professor?.length !== 0) {
           const getProfessor = response.data.professor[0]
 
           httpClient.get('/departamento/' + getProfessor.id_departamento).then((depResponse) => {
@@ -55,12 +57,16 @@ export const FormTeacher = (props: FormProps) => {
   }, [props])
 
   async function handleSubmit(values: ProfessorValues) {
+    setSnackbar('Usuário DESEG não pode cadastrar professor.')
+
     console.log('Deseg não cadastra professor.', values)
   }
 
   return (
     <Formik enableReinitialize initialValues={professor} onSubmit={handleSubmit}>
       <FormTeacherFields viewOnly={props.viewOnly} />
+
+      <Snackbar />
     </Formik>
   )
 }

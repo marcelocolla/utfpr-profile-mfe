@@ -45,7 +45,7 @@ export const FormDepartment = (props: FormDepartmentProps) => {
     await httpClient
       .get('departamento')
       .then((response: any) => {
-        setDepartamentos(response.data.departamento)
+        setDepartamentos(response.data.departamento || [])
       })
       .catch((err) => {
         console.error(err)

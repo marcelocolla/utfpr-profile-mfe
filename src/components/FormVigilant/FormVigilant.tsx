@@ -39,7 +39,7 @@ export const FormVigilant = (props: FormProps): JSX.Element => {
     await httpClient
       .get('/vigilante/' + props.id_usuario)
       .then((response: any) => {
-        if (response.data.vigilante.length !== 0) {
+        if (response.data.vigilante?.length !== 0) {
           const getVigilante = response.data.vigilante[0]
 
           setVigilante({
@@ -76,7 +76,7 @@ export const FormVigilant = (props: FormProps): JSX.Element => {
       senha: values.senha,
     })
 
-    history.go(0)
+    history.goBack()
   }
 
   async function handleUpdate(values: any) {
@@ -92,7 +92,7 @@ export const FormVigilant = (props: FormProps): JSX.Element => {
         if (response.status !== 200) {
           alert('Houve um problema ao atualizar, contate o suporte!')
         } else {
-          history.go(0)
+          history.goBack()
         }
       })
   }
