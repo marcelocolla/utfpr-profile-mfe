@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router'
 import {
   Modal,
   Button,
@@ -18,6 +19,7 @@ import { CardUser } from 'components/CardUser'
 
 export const HomePage = (): JSX.Element => {
   const user = useUserStore()
+  const history = useHistory()
   const userName = user && user.pessoa && user.pessoa.nome_pessoa
 
   const [open, setOpen] = React.useState(false)
@@ -29,7 +31,7 @@ export const HomePage = (): JSX.Element => {
   function atualizar() {
     setOpen(false)
 
-    history.go(0)
+    history.goBack()
   }
 
   // abre a opção de visualização de cadastros para o perfil DESEG
